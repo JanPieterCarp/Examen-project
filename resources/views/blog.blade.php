@@ -7,6 +7,7 @@
     <meta name="author" content="Jan-Pieter Martin Ott">
     <meta name="viewport" content="width-device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/app.css">
+    <script src="/app.js"></script>
     <title>Mijn blog</title>
   </head>
     <body>
