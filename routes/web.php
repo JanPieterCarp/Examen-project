@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,16 +23,23 @@ Route::get('/', function () {
 });
 
 Route::get('posts/{post}', function ($slug) {
-    if(! file_exists($path = __DIR__."/../resources/posts/{$slug}.html")){
-        return redirect('/');
-    }
-
-
-    $post = cache()->remember("posts.{$slug}", now()->addMinutes(20), function() use ($path){
-        return file_get_contents($path);
-    });
-
+    // vind een post met een slug en geef hem door aan de view genaamd 'post'
+    $post = Post::find($slug);
 
     return view('post', [
-    'post' => $post]);
+        'post' => $post
+    ]);
+
+    // if(! file_exists($path = __DIR__."/../resources/posts/{$slug}.html")){
+    //     return redirect('/');
+    // }
+
+
+    // $post = cache()->remember("posts.{$slug}", now()->addMinutes(20), function() use ($path){
+    //     return file_get_contents($path);
+    // });
+
+
+    // return view('post', [
+    // 'post' => $post]);
 })->where('post','[A-z_\-]+');
