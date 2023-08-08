@@ -23,7 +23,8 @@ class Post
 
     public static function all()
     {
-    return collect(File::files(resource_path("posts/")))
+    return cache()->rememberForever('post.all', function(){
+        return collect(File::files(resource_path("posts/")))
         ->map(fn ($file) => YamlFrontMatter::parseFile($file))
         ->map(fn($document) => new Post(
             $document->title,
@@ -32,21 +33,28 @@ class Post
             $document->body(),
             $document->slug
 
-        ));
+        ))
+        ->sortByDesc('date');
+    });
+
     }
 
     public static function find($slug)
     {
-        if(! file_exists($path = resource_path("/posts/{$slug}.html"))){
-            //return redirect('/')
-            throw new ModelNotFoundException;
-        }
-    return cache()->remember("posts.{$slug}", 1000, fn() => file_get_contents($path));
-    {
-        //return file_get_contents($path);
+        return static::all()->firstwhere('slug', $slug);
     }
+    public static function findorfail($slug)
+    {
+        $post =  static::find($slug);
+
+        if (! $post){
+            throw new ModelNotFoundException();
+        }
+
+        return $post;
     }
 }
+
 
 
 
