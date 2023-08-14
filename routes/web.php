@@ -28,11 +28,11 @@ Route::get('/', function () {
         ]);
     });
 
-Route::get('posts/{post}', function ($slug) {
+Route::get('posts/{post}', function (Post $post) {
     // vind een post met een slug en geef hem door aan de view genaamd 'post'
 
     return view('post', [
-        'post' => Post::findorfail($slug)
+        'post' => Post::findorfail($post)
 
     ]);
-})->where('post','[A-z_\-]+');
+})->where('posts','[A-z_\-]+');
