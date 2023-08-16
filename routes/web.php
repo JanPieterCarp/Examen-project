@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
+use App\Models\Category;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /*
@@ -20,19 +21,29 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 // });
 
 Route::get('/', function () {
-
-    $posts = Post::all();
+    \Illuminate\Support\Facades\DB::listen(function($query){
+        logger($query->sql, $query->bindings);
+    });
 
         return view('posts',
-        ['posts' => Post::all()
+        ['posts' => Post::with('category')->get()
         ]);
     });
 
-Route::get('posts/{post}', function (Post $post) {
-    // vind een post met een slug en geef hem door aan de view genaamd 'post'
+Route::get('posts/{post:slug}', function (Post $post) {
+    // vind de eerste post met dezelfde slug die wordt opgegeven of faal
 
     return view('post', [
-        'post' => Post::findorfail($post)
+        'post' => $post
 
     ]);
 })->where('posts','[A-z_\-]+');
+
+
+Route::get('categories/{category:slug}', function (Category $category) {
+
+    return view('posts', [
+        'posts' => $category->posts
+
+    ]);
+});
