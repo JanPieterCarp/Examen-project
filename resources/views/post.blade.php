@@ -4,10 +4,10 @@
             {!!$post->title!!}
         </h1>
         <p>
-           Van <a href="#">Jan-Pieter</a>, over <a href="/categories/{{$post->category->slug}}"> {{$post->category->name}} </a>
+           Van <a href="/authors/{{ $post->author->username}}">{{ $post->author->name}}</a>, over <a href="/categories/{{$post->category->slug}}"> {{$post->category->name}} </a>
         <p>
         <div>
-            {!!$post->body!!}
+            <p>{!!$post->body!!}</p>
         </div>
     </article>
 
