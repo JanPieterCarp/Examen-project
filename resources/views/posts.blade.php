@@ -1,5 +1,23 @@
 <x-layout>
-    @foreach ($posts as $post)
+
+        @include('_post-header')
+
+        <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
+            <x-post-feature-card :post="$posts[0]"/>
+
+            <div class="lg:grid lg:grid-cols-2">
+                @foreach ($posts->skip(1) as $post)
+                    <x-post-card :post="$posts"/>
+                @endforeach
+            </div>
+            <div class="lg:grid lg:grid-cols-3">
+                <x-post-card />
+                <x-post-card />
+                <x-post-card />
+            </div>
+        </main>
+
+<!-- @foreach ($posts as $post)
             <article>
                 <h1>
                     <a href="/posts/{{ $post-> slug }}">
@@ -12,7 +30,7 @@
                     {{$post->excerpt}}
                 </div>
             </article>
-    @endforeach
+    @endforeach -->
 </x-layout>
 
 
