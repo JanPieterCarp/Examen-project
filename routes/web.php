@@ -5,6 +5,7 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\User;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,42 +18,27 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
-Route::get('/', function () {
-    \Illuminate\Support\Facades\DB::listen(function($query){
-        logger($query->sql, $query->bindings);
-    });
+Route::get('/', [PostController::class, 'index'])->name('home');
 
-        return view('posts',
-        ['posts' => Post::latest('published_at')->with('category', 'author')->get()
-        ]);
-    });
-
-Route::get('posts/{post:slug}', function (Post $post) {
-    // vind de eerste post met dezelfde slug die wordt opgegeven of faal
-
-    return view('post', [
-        'post' => $post
-
-    ]);
-})->where('posts','[A-z_\-]+');
+Route::get('posts/{post:slug}', [PostController::class, 'show'])->where('posts','[A-z_\-]+');
 
 
-Route::get('categories/{category:slug}', function (Category $category) {
+// Route::get('categories/{category:slug}', function (Category $category) {
 
-    return view('posts', [
-        'posts' => $category->posts->load(['category','author'])
+//     return view('posts', [
+//         'posts' => $category->posts->load(['category','author']),
+//         'currentCategory' => $category,
+//         'categories' =>category::all()
 
-    ]);
-});
+//     ]);
+// })->name('category');
 
     Route::get('authors/{author:username}', function (user $author) {
 
-        return view('posts', [
-            'posts' => $author->posts->load(['category','author'])
+        return view('posts.index', [
+            'posts' => $author->posts->load(['category','author']),
+            'categories' =>category::all()
 
         ]);
 });
