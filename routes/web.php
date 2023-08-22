@@ -6,39 +6,10 @@ use App\Models\Category;
 use App\Models\User;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use App\Http\Controllers\PostController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
+use App\Http\Controllers\RegisterController;
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('posts/{post:slug}', [PostController::class, 'show'])->where('posts','[A-z_\-]+');
 
-
-// Route::get('categories/{category:slug}', function (Category $category) {
-
-//     return view('posts', [
-//         'posts' => $category->posts->load(['category','author']),
-//         'currentCategory' => $category,
-//         'categories' =>category::all()
-
-//     ]);
-// })->name('category');
-
-    Route::get('authors/{author:username}', function (user $author) {
-
-        return view('posts.index', [
-            'posts' => $author->posts->load(['category','author']),
-            'categories' =>category::all()
-
-        ]);
-});
+Route::get('register', [RegisterController::class, 'create']);

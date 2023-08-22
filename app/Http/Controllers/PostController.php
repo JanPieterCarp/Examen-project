@@ -10,8 +10,8 @@ class PostController extends Controller
     public function index(){
 
         return view('posts.index',
-            ['posts' => Post::latest()->filter(request(['search', 'category', 'author']))->get(),
-            'categories' =>category::all()
+            ['posts' => Post::latest()->filter(request(['search', 'category', 'author']))
+            ->simplePaginate(6)->withQueryString(),
 
         ]);
     }
@@ -22,7 +22,4 @@ class PostController extends Controller
         ]);
     }
 
-    protected function getPosts(){
-       return ;
-    }
 }
