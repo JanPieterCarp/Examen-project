@@ -5,6 +5,7 @@ namespace Database\Factories;
 
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +22,7 @@ class CommentFactory extends Factory
     {
         return [
             'body' => $this->faker->paragraph(),
-            'user_id' => Post::Factory(),
+            'user_id' => User::Factory(),
             'post_id' => Post::Factory(),
         ];
     }
