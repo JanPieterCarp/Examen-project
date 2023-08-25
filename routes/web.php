@@ -8,10 +8,12 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\postCommentsController;
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('posts/{post:slug}', [PostController::class, 'show'])->where('posts','[A-z_\-]+');
+Route::post('posts/{post:slug}/comments', [postCommentsController::class, 'store']);
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
