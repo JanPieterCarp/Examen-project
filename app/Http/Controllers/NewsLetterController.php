@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class NewsLetterController extends Controller
 {
     public function __invoke(Newsletter $newsletter){
+
         request()->validate(['email' => 'required|email']);
 
         try{

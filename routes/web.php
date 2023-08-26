@@ -10,8 +10,9 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\postCommentsController;
+use App\Http\Controllers\NewsLetterController;
 
-Route::post('newsletter', NewsLetterController::class);
+
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
@@ -25,3 +26,7 @@ Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth')
 
 Route::post('sessions', [SessionController::class, 'store'])->middleware('guest');
 Route::get('login', [SessionController::class, 'create'])->middleware('guest');
+
+Route::post('newsletter', [NewsLetterController::class]);
+
+Route::get('admin/posts/create', [PostController::class, 'create'])->middleware('admin');
