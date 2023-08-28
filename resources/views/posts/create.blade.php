@@ -1,8 +1,5 @@
 <x-layout>
-
-    <section class="px-6 py-8 max-w-md mx-auto">
-        <h1 class="text-lg font-bold mb-4 text-center">Publish a new post</h1>
-        <x-panel>
+    <x-settings heading="publish new post">
         <form method="POST" action="/admin/posts" enctype="multipart/form-data">
             @csrf
 
@@ -15,8 +12,6 @@
             <x-form.textarea name="excerpt" />
 
             <x-form.textarea name="body" />
-
-
 
 
             <x-form.field>
@@ -36,6 +31,5 @@
             <x-form.submit-button> Post </x-form.submit-button>
 
         </form>
-    </section>
-    </x-panel>
+    </x-settings>
 </x-layout>
