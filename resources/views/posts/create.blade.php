@@ -1,79 +1,39 @@
 <x-layout>
-    <x-panel class="max-w-sm mx-auto">
-    <section class="px-6 py-8">
-        <form method="POST" action="/admin/posts">
+
+    <section class="px-6 py-8 max-w-md mx-auto">
+        <h1 class="text-lg font-bold mb-4 text-center">Publish a new post</h1>
+        <x-panel>
+        <form method="POST" action="/admin/posts" enctype="multipart/form-data">
             @csrf
-            <div class="mb-6">
-                <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
-                    for="title">
-                    Title
-                </label>
-                <input class="border border-gray-400 p-2 w-full"
-                    type="text"
-                    name="title"
-                    id="title"
-                    required>
 
-                @error('title')
-                    <p class="text-red-500 text-xs mt-2"> {{ $message }} </p>
-                @enderror
-            </div>
+            <x-form.input name="title" type="text"/>
 
-            <div class="mb-6">
-                <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
-                    for="excerpt">
-                    excerpt
-                </label>
-                <input class="border border-gray-400 p-2 w-full"
-                    type="text"
-                    name="excerpt"
-                    id="excerpt"
-                    required>
+            <x-form.input name="slug" type="text"/>
 
-                @error('excerpt')
-                    <p class="text-red-500 text-xs mt-2"> {{ $message }} </p>
-                @enderror
-            </div>
+            <x-form.input name="thumbnail" type="file"/>
 
-            <div class="mb-6">
-                <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
-                    for="body">
-                    body
-                </label>
-                <input class="border border-gray-400 p-2 w-full"
-                    type="text"
-                    name="body"
-                    id="body"
-                    required>
+            <x-form.textarea name="excerpt" />
 
-                @error('body')
-                    <p class="text-red-500 text-xs mt-2"> {{ $message }} </p>
-                @enderror
-            </div>
+            <x-form.textarea name="body" />
 
-            <div class="mb-6">
-                <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
-                    for="category">
-                    Category
-                </label>
 
-                <select name="category" id="category">
-                    @php
-                        $categories= \App\Models\Category::all();
 
-                    @endphp
 
-                    @foreach ($categories as $category) {
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        }
-                    @endforeach
+            <x-form.field>
+                <x-form.label name="category"/>
+                    <select name="category_id" id="category_id">
+                        @foreach (\App\Models\Category::all() as $category) {
+                            <option value="{{ $category->id }}"
+                                {{ old('category_id') == $category->id ? 'selected' : ''}}>
+                                {{ ucwords($category->name) }}</option>
+                            }
+                        @endforeach
+                    </select>
 
-                </select>
+                <x-form.error name="category" />
+            </x-form.field>
 
-                @error('category')
-                    <p class="text-red-500 text-xs mt-2"> {{ $message }} </p>
-                @enderror
-            </div>
+            <x-form.submit-button> Post </x-form.submit-button>
 
         </form>
     </section>
