@@ -1,5 +1,7 @@
 <x-layout>
-
+{{--    auth jan-Pieter
+        index pagina frontend voor posts displayen
+--}}
         @include('posts._header')
 
         <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">

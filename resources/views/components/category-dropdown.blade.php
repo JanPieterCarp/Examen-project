@@ -1,3 +1,7 @@
+{{--    auth jan-Pieter
+        standaard dropdown voor filteren posts op categorie
+--}}
+
 <x-dropdown>
     <x-slot name="trigger">
         <button class="py-2 w-full pl-3 pr-9 text-sm font-semibold lg:w-32 flex lg:inline-flex text-left">

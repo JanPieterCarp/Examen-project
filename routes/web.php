@@ -23,7 +23,7 @@ Route::get('login', [SessionController::class, 'create'])->middleware('guest');
 
 Route::post('newsletter', [NewsLetterController::class]);
 
-Route::middleware('can:admin')->group(function () {
+Route::middleware('can:admin')->middleware('throttle:5,1')->group(function () {
 
     Route::post('admin/posts', [AdminPostController::class, 'store']);
     Route::get('admin/posts/create', [AdminPostController::class, 'create']);
@@ -34,3 +34,9 @@ Route::middleware('can:admin')->group(function () {
 
 });
 
+Route::middleware('can:auth')->middleware('throttle:5,1')->group(function () {
+    Route::post('user/posts', [PostController::class, 'store']);
+    Route::get('user/posts/create', [PostController::class, 'create']);
+    Route::get('user/posts', [PostController::class, 'index']);
+    Route::patch('user/posts/{post}', [PostController::class, 'update']);
+});

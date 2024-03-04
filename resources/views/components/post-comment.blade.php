@@ -1,4 +1,8 @@
 @props(['comment'])
+{{--    auth jan-Pieter
+        frontend voor comments bij posts.
+--}}
+
 <x-panel class="bg-gray-200">
 <article class="flex space-x-4">
         <div style="flex-shrink: 0;"><img src="https://i.pravatar.cc/60?u={{ $comment->user_id }}" class="rounded-xl" width="60" height="60"></div>

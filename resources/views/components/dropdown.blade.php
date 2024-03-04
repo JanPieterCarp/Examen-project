@@ -1,5 +1,7 @@
 @props(['trigger'])
-
+{{--    auth jan-Pieter
+        standaard dropdown component
+--}}
 <div x-data="{show: false}" @click.away="show = false" class=" relative">
     {{-- trigger --}}
     <div @click="show = ! show">

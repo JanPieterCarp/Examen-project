@@ -1,6 +1,9 @@
 <!doctype html>
+{{--    auth Jan-Pieter
+        Dit is de layout file en is verantwoordelijk voor de layout van alle frontend pagina's
+--}}
 
-<title>Laravel From Scratch Blog</title>
+<title>Laravel From Scratch project</title>
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -32,6 +35,7 @@
                         <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')"> Create a post </x-dropdown-item>
                         <x-dropdown-item href="/admin/posts" :active="request()->is('admin/posts')"> Dashboard </x-dropdown-item>
                     @endadmin
+                    <x-dropdown-item href="/user/posts/create" :active="request()->is('admin/posts/create')"> Create a user post </x-dropdown-item>
 
                     <x-dropdown-item href="#" x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()"> Log-Out </x-dropdown-item>
 

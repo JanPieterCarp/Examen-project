@@ -1,5 +1,8 @@
 
 @props(['heading'])
+{{--    auth jan-Pieter
+        GUI met routes voor admins
+--}}
 
 <section class="px-6 py-8 max-w-4xl mx-auto">
     <h1 class="text-lg font-bold mb-8 pb-2 border-b">{{ $heading }}</h1>

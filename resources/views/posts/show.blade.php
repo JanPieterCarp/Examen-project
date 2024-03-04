@@ -1,6 +1,8 @@
 <x-layout>
 <!doctype html>
-
+{{--    auth jan-Pieter
+        frontend voor post bezoeken/aanklikken
+--}}
 <body style="font-family: Open Sans, sans-serif">
 
 

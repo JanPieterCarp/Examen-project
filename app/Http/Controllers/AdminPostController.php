@@ -6,6 +6,10 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
+// auth Jan-Pieter Ott
+// Deze controller is verantwoordelijk voor de functies van gebruikers die de admin status behouden
+//
+
 class AdminPostController extends Controller
 {
     public function index(){
@@ -16,7 +20,6 @@ class AdminPostController extends Controller
 
 
     public function create(){
-
         return view('admin.posts.create');
     }
 

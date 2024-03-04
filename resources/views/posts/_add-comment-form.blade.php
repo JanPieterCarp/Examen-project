@@ -1,4 +1,7 @@
 @auth
+{{--    auth jan-Pieter
+        GUI html form voor comments
+--}}
     <x-panel>
         <form method="POST" action="/posts/{{ $post->slug }}/comments" class="">
             @csrf

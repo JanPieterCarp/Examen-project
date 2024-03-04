@@ -1,4 +1,7 @@
 @props(['posts'])
+{{--    auth jan-Pieter
+        grid layout voor webpaginas
+--}}
 
 <x-post-feature-card :post="$posts[0]"/>
 
