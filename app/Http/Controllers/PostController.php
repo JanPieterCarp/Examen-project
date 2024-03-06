@@ -26,5 +26,20 @@ class PostController extends Controller
         ]);
     }
 
+    public function create(){
+        return view('user.posts.create');
+    }
+
+    public function store(){
+
+        $attributes = array_merge($this->validatePost(),[
+            'user_id' => request()->user()->id,
+            'thumbnail' => request()->file('thumbnail')->store('thumbnails')
+            ]);
+
+        Post::create($attributes);
+
+        return redirect('/');
+    }
 
 }
