@@ -1,6 +1,6 @@
 <x-layout>
     <x-settings heading="publish new post">
-        <form method="POST" action="/admin/posts" enctype="multipart/form-data">
+        <form method="POST" action="/user/posts" enctype="multipart/form-data">
             @csrf
 
             <x-form.input name="title" type="text"/>

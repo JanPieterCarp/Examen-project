@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Validation\Rule;
 
+
 class PostController extends Controller
 {
     public function index(){
@@ -30,16 +31,37 @@ class PostController extends Controller
         return view('user.posts.create');
     }
 
-    public function store(){
+    public function store(Request $request){
 
-        $attributes = array_merge($this->validatePost(),[
-            'user_id' => request()->user()->id,
-            'thumbnail' => request()->file('thumbnail')->store('thumbnails')
-            ]);
+        //dd($request);
+        $attributes = $request->validate([
+            'title' => 'required',
+            'thumbnail' => $request->exists ? 'image|required' : 'required|image',
+            'excerpt' => 'required',
+            'slug' => ['required', Rule::unique('posts', 'slug')->ignore($request->post)],
+            'body' => 'required',
+            'category_id' => ['required', Rule::exists('categories', 'id')]
+        ]);
+
+        $attributes['user_id'] = request()->user()->id;
+        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
 
         Post::create($attributes);
 
         return redirect('/');
+    }
+
+
+    protected function validatePost(Post $post = null): array{
+        $post ?? new Post();
+        return request()->validate([
+            'title' => 'required',
+            'thumbnail' => $post->exists ? ['image'] :['required','image'],
+            'excerpt' => 'required',
+            'slug' => ['required', Rule::Unique('posts', 'slug')->ignore($post)],
+            'body' => 'required',
+            'category_id' => ['required', Rule::exists('categories', 'id')]
+        ]);
     }
 
 }

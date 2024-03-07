@@ -16,25 +16,22 @@ Route::post('posts/{post:slug}/comments', [postCommentsController::class, 'store
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
 
-Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
-
 Route::post('sessions', [SessionController::class, 'store'])->middleware('guest');
 Route::get('login', [SessionController::class, 'create'])->middleware('guest');
 
 Route::post('newsletter', [NewsLetterController::class]);
 
-Route::middleware('can:admin')->middleware('throttle:5,1')->group(function () {
-
+Route::middleware(['can:admin', 'throttle:5,1'])->group(function () {
     Route::post('admin/posts', [AdminPostController::class, 'store']);
     Route::get('admin/posts/create', [AdminPostController::class, 'create']);
     Route::get('admin/posts', [AdminPostController::class, 'index']);
     Route::get('admin/posts/{post}/edit', [AdminPostController::class, 'edit']);
     Route::patch('admin/posts/{post}', [AdminPostController::class, 'update']);
     Route::delete('admin/posts/{post}', [AdminPostController::class, 'destroy']);
-
 });
 
-Route::middleware('can:auth')->middleware('throttle:5,1')->group(function () {
+Route::middleware(['auth', 'throttle:5,1'])->group(function () {
+    Route::post('logout', [SessionController::class, 'destroy']);
     Route::post('user/posts', [PostController::class, 'store']);
     Route::get('user/posts/create', [PostController::class, 'create']);
     Route::get('user/posts', [PostController::class, 'index']);
