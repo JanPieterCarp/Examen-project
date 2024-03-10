@@ -3,6 +3,9 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -26,5 +29,32 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $e)
+    {
+        if ($e instanceof \Illuminate\Validation\ValidationException) {
+            return $this->convertValidationExceptionToResponse($e, $request);
+        }
+
+        elseif ($e instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+            $this->report($e);
+            abort(404); // Model niet gevonden exception
+        }
+
+        else
+        {
+            $this->report($e);
+            abort(404); // Model niet gevonden exception
+        }
+    }
+
+    public function report(Throwable $exception)
+    {
+        if ($this->shouldReport($exception)) {
+            Log::channel('errorlog')->error($exception->getMessage(), ['exception' => $exception]);
+        }
+
+        parent::report($exception);
     }
 }
