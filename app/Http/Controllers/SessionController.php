@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Concerns\InteractsWithInput;
 use Illuminate\Http\Request;
 
@@ -25,7 +25,7 @@ class sessionController extends Controller
         }
 
         return back()
-        ->InteractsWithInput()->
+        ->withInput()->
         withErrors(['email' => 'your provided credentials could not be verified']);
     }
 

@@ -9,10 +9,10 @@
                 <img src="https://i.pravatar.cc/60?u={{ auth()->id() }}" class="rounded-full" width="40" height="40">
                 <h2 class="ml-4">Want to participate?</h2>
             </header>
-            <div class="mt-6">
+            <div class="mt-6 p-1 border border-grey-200 rounded-md">
                 <textarea name="body"
                     required
-                    class="w-full text-sm focus:outline-none focus:ring"
+                    class="shadow-black w-full text-sm focus:outline-none focus:ring"
                     rows="5" placeholder="type something :)">
                 </textarea>
                     @error('body')
