@@ -17,7 +17,6 @@ class PostController extends Controller
         return view('posts.index',
             ['posts' => Post::latest()->filter(request(['search', 'category', 'author']))
             ->simplePaginate(6)->withQueryString(),
-
         ]);
     }
 
@@ -33,7 +32,6 @@ class PostController extends Controller
 
     public function store(Request $request){
 
-        //dd($request);
         $attributes = $request->validate([
             'title' => 'required',
             'thumbnail' => $request->exists ? 'image|required' : 'required|image',
@@ -51,7 +49,6 @@ class PostController extends Controller
         return redirect('/');
     }
 
-
     protected function validatePost(Post $post = null): array{
         $post ?? new Post();
         return request()->validate([
@@ -63,5 +60,4 @@ class PostController extends Controller
             'category_id' => ['required', Rule::exists('categories', 'id')]
         ]);
     }
-
 }

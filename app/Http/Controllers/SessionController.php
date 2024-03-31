@@ -21,18 +21,18 @@ class sessionController extends Controller
 
         if(auth()-> attempt($attributes)){
             session()->regenerate();
-            return redirect('/')->with('succses', 'You are logged in');
+            return redirect('/')->with('succses', 'Je bent ingelogd');
         }
 
         return back()
         ->withInput()->
-        withErrors(['email' => 'your provided credentials could not be verified']);
+        withErrors(['email' => 'Geen gebruiker gevonden met deze gegevens']);
     }
 
 
     public function destroy()
     {
         auth()->logout();
-        return redirect('/')->with('success', 'goodbye!');
+        return redirect('/')->with('success', 'doei!');
     }
 }

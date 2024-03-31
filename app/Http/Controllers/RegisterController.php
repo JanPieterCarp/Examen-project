@@ -12,7 +12,6 @@ class RegisterController extends Controller
     }
 
     public function store(){
-        //return request()->all();
         $attributes = request()->validate([
             'name' => 'required|max:255|min:3',
             'username' => 'required|max:255|min:2|unique:users,username',
@@ -29,5 +28,4 @@ class RegisterController extends Controller
 
         return redirect('/');
     }
-
 }
