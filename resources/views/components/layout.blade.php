@@ -31,14 +31,18 @@
                         <button><span class="text-xs font-bold uppercase">Welcome, {{auth()->user()->name}}!</span></button>
                     </x-slot>
 
+                    @auth
                     @admin
                         <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')"> Create a post </x-dropdown-item>
                         <x-dropdown-item href="/admin/posts" :active="request()->is('admin/posts')"> Dashboard </x-dropdown-item>
+                    @else
+                        <!-- This section is only visible to authenticated users who are not admins -->
+                        <x-dropdown-item href="/user/posts/create" :active="request()->is('user/posts/create')"> Create a user post </x-dropdown-item>
                     @endadmin
-                    <x-dropdown-item href="/user/posts/create" :active="request()->is('admin/posts/create')"> Create a user post </x-dropdown-item>
 
+                    <!-- Common logout item available for all authenticated users -->
                     <x-dropdown-item href="#" x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()"> Log-Out </x-dropdown-item>
-
+                @endauth
                     <form method="POST" id="logout-form" action="/logout" class="hidden">
                         @csrf
                         <button type="submit" class="text-xs font-semibold uppercase text-white bg-blue-500 ml-6  py-3 px-5 rounded-full">logout</button>
