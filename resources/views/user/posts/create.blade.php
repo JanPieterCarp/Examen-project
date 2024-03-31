@@ -1,4 +1,5 @@
 <x-layout>
+
     <x-settings-user heading="publish new post">
         <form method="POST" action="/user/posts" enctype="multipart/form-data">
             @csrf
@@ -12,7 +13,6 @@
             <x-form.textarea name="excerpt" />
 
             <x-form.textarea name="body" />
-
 
             <x-form.field>
                 <x-form.label name="category"/>

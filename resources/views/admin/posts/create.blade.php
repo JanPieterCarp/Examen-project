@@ -13,7 +13,6 @@
 
             <x-form.textarea name="body" />
 
-
             <x-form.field>
                 <x-form.label name="category"/>
                     <select name="category_id" id="category_id">
@@ -29,7 +28,6 @@
             </x-form.field>
 
             <x-form.submit-button> Post </x-form.submit-button>
-
         </form>
     </x-settings>
 </x-layout>

@@ -14,7 +14,13 @@
                     <a href="/admin/posts" class="{{ request()->is('admin/posts') ? 'text-blue-500' : '' }}"> All Posts</a>
                 </li>
                 <li>
-                    <a href="/admin/posts/create" class="{{ request()->is('admin/posts/create') ? 'text-blue-500' : '' }}">New Post</a>
+                    <a href="/user/posts/create" class="{{ request()->is('user/posts/create') ? 'text-blue-500' : '' }}">New Post</a>
+                </li>
+                <li>
+                    <a href="#" class="{{ request()->is('#') ? 'text-blue-500' : 'text-gray-400 pointer-events-none' }}" id='mylink'> My Posts</a>
+                </li>
+                <li>
+                    <a href="#" class="{{ request()->is('#') ? 'text-blue-500' : 'text-gray-400 pointer-events-none' }}" id='mylink'> Saved posts</a>
                 </li>
             </ul>
         </aside>
