@@ -7,6 +7,8 @@ use App\Http\Controllers\postCommentsController;
 use App\Http\Controllers\NewsLetterController;
 use App\Http\Controllers\AdminPostController;
 
+// This is my web folder and contains all routes
+
 Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('posts/{post:slug}', [PostController::class, 'show'])->where('posts','[A-z_\-]+');
