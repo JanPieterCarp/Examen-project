@@ -12,10 +12,10 @@ use App\Http\Controllers\AdminPostController;
 Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('posts/{post:slug}', [PostController::class, 'show'])->where('posts','[A-z_\-]+');
-Route::post('posts/{post:slug}/comments', [postCommentsController::class, 'store']);
+Route::post('posts/{post:slug}/comments', [postCommentsController::class, 'store'])->middleware('throttle:5,1');
 
-Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
-Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
+Route::get('register', [RegisterController::class, 'create'])->middleware('guest')->middleware('throttle:5,1');
+Route::post('register', [RegisterController::class, 'store'])->middleware('guest')->middleware('throttle:5,1');
 
 Route::post('sessions', [SessionController::class, 'store'])->middleware('guest');
 Route::get('login', [SessionController::class, 'create'])->middleware('guest')->middleware('throttle:5,1');
@@ -36,5 +36,4 @@ Route::middleware('auth')->group(function () {
     Route::post('user/posts', [PostController::class, 'store'])->middleware('throttle:5,1');
     Route::get('user/posts/create', [PostController::class, 'create']);
     Route::get('user/posts', [PostController::class, 'index']);
-    Route::patch('user/posts/{post}', [PostController::class, 'update']);
 });

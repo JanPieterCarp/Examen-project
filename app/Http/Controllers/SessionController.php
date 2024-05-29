@@ -15,8 +15,8 @@ class sessionController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'email' => 'required|email',
-            'password' => 'required'
+            'email' => 'required|email|min:5|max:150',
+            'password' => 'required|min:5|string|max:150'
         ]);
 
         if(auth()-> attempt($attributes)){
